@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.Domain\Abbas_Behjatnia.CTC.Domain.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.Application.Contracts\Abbas_Behjatnia.CTC.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.Shared\Abbas_Behjatnia.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

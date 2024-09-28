@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.Domain.Shared\Abbas_Behjatnia.CTC.Domain.Shared.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.Application\Abbas_Behjatnia.CTC.Application.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.EFCore\Abbas_Behjatnia.CTC.EFCore.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.HttpApi\Abbas_Behjatnia.CTC.HttpApi.csproj" />
+  </ItemGroup>
+
+</Project>
