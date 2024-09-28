@@ -1,11 +1,7 @@
-namespace Abbas_Behjatnia.Shared.Domain;
 
-public interface IEntity
-{
-    object[] GetKeys();
-}
+namespace Abbas_Behjatnia.Shared.Domain.Entities;
 
-public interface IEntity<TKey> : IEntity
+public interface IEntity<TKey>
 {
     TKey Id { get; }
 }

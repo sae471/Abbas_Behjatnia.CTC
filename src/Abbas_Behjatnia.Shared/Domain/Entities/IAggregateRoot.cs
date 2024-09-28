@@ -1,11 +1,5 @@
-namespace Abbas_Behjatnia.Shared.Domain;
 
-public interface IAggregateRoot : IEntity
+namespace Abbas_Behjatnia.Shared.Domain.Entities;
+public interface IAggregateRoot<Tkey> : IEntity<Tkey>
 {
-
-}
-
-public interface IAggregateRoot<TKey> : IEntity<TKey>, IEntity, IAggregateRoot
-{
-
 }

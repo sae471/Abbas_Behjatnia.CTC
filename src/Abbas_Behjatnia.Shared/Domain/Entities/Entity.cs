@@ -1,42 +1,10 @@
-namespace Abbas_Behjatnia.Shared.Domain;
 
-[Serializable]
-public abstract class Entity : IEntity
+namespace Abbas_Behjatnia.Shared.Domain.Entities;
+
+public class Entity<TKey> : IEntity<TKey>
 {
-    public virtual object[] GetKeys()
-    {
-        //todo
-        throw new NotImplementedException();
-    }
+    protected Entity() { }
+    protected Entity(TKey id) { }
 
-    public override string ToString()
-    {
-        return $"[ENTITY: {GetType().Name}] Keys = {string.Join(", ", GetKeys())}";
-    }
-}
-
-[Serializable]
-public abstract class Entity<TKey> : Entity, IEntity<TKey>
-{
     public virtual TKey Id { get; protected set; }
-
-    protected Entity()
-    {
-
-    }
-
-    protected Entity(TKey id)
-    {
-        Id = id;
-    }
-
-    public override object[] GetKeys()
-    {
-        return new object[] { Id };
-    }
-
-    public override string ToString()
-    {
-        return $"[ENTITY: {GetType().Name}] Id = {Id}";
-    }
 }
