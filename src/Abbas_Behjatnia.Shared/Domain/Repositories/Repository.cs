@@ -29,17 +29,11 @@ public abstract class Repository<TEntity> : IRepository<TEntity>
     {
         return await _context.Set<TEntity>().FirstOrDefaultAsync(it => it.Id == id);
     }
-    public Task<TEntity> FirstOrDefaultAsync(Guid id)
+    public virtual async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        //todo
-        throw new NotImplementedException();
+        return await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
     }
-    public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
-    {
-        //todo
-        throw new NotImplementedException();
-    }
-    public Task<IQueryable<TEntity>> GetQueryableAsync()
+    public virtual Task<IQueryable<TEntity>> GetQueryableAsync()
     {
         return Task.Run(() =>
         {

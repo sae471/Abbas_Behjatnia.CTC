@@ -3,11 +3,18 @@
 namespace Abbas_Behjatnia.CTC.Domain.Shared;
 public enum VehicleType
 {
-    //todo
-    Unknown = 0,
-    A = 1,
-    B = 2,
-    C = 3,
-    D = 4,
-    E = 5,
+    Sedan = 1,
+    Hatchback = 2,
+    Coupe = 3,
+    Convertible = 4,
+    SportUtilityVehicle = 5,
+    Crossover = 6,
+    PickupTruck = 7,
+    LightTruck = 8,
+    HeavyDutyTruck = 8,
+    Van = 9,
+    BoxTruck = 10,
+    TowTruck = 11,
+
+    //...
 }

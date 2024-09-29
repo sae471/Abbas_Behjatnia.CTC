@@ -311,8 +311,8 @@ public static class QueryableExtensions
         var totalCount = source.Count();
         source = source.Select(input);
         source = source.Sort(input.Sorting);
-        source = source.Skip(input.SkipCount);
-        source = source.Take(input.MaxResultCount);
+        source = source.Skip(input.SkipCount.Value);
+        source = source.Take(input.MaxResultCount.Value);
 
         var list = source.ToList();
         IMapper Mapper = LazyServiceProvider.LazyGetService<IMapper>();

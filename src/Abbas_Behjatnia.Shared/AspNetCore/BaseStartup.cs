@@ -19,9 +19,7 @@ public static class BaseStartup
 
         services.AddRouting(opt => opt.LowercaseUrls = true);
         services.AddHttpContextAccessor();
-        //todo
-        // services.AddAutoMapper(loadedAssemblies);
-
+        services.AddAutoMapper(loadedAssemblies);
 
         foreach (Assembly assembly in loadedAssemblies)
         {
@@ -73,7 +71,7 @@ public static class BaseStartup
 
     public static void InitializeApplication(this IApplicationBuilder app)
     {
-        // app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<ExceptionMiddleware>();
     }
 
 }

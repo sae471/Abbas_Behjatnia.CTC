@@ -10,7 +10,6 @@ public interface IBaseAppService<TEntity, TEntityDto, TEntityUpsertDto>
     where TEntityDto : EntityDto<Guid>
     where TEntityUpsertDto : EntityDto<Guid>
 {
-    Task<IQueryable<TEntity>> GetQueryableAsync();
     Task<TEntityDto> UpsertAsync(TEntityUpsertDto input);
     Task<TEntityDto> GetAsync(Guid id);
     Task<ResultDto<TEntityDto>> GetListAsync(RequestDto input);

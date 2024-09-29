@@ -6,13 +6,24 @@ namespace Abbas_Behjatnia.CTC.Domain.Aggregates;
 
 public class Vehicle : AggregateRoot<Guid>
 {
-    public virtual VehicleType Type { get; internal set; } = 0;
-    public virtual string PlateNumber { get; internal set; } = string.Empty;
+    public virtual VehicleType Type { get; internal set; }
+    public virtual VehicleOwnerShipType OwnerShipType { get; internal set; }
+    public virtual string PlateNumber { get; internal set; }
+    public virtual string ChassisNumber { get; internal set; }
+    public virtual string ManufacturerCompany { get; set; }
+    public virtual string ManufacturerClass { get; set; }
+    public virtual string YearofManufacture { get; set; }
+    public virtual Guid? VehicleCategoryId { get; internal set; }
+    public virtual VehicleCategory VehicleCategory { get; internal set; }
+    public virtual string Color { get; set; }
 
     protected Vehicle() { }
-    public Vehicle(Guid id, string plateNumber, VehicleType type) : base(id)
+    public Vehicle(Guid id, VehicleType type, VehicleOwnerShipType ownerShipType, string plateNumber, string chassisNumber) : base(id)
     {
-        PlateNumber = plateNumber;
+        Id = id;
         Type = type;
+        OwnerShipType = ownerShipType;
+        PlateNumber = plateNumber;
+        ChassisNumber = chassisNumber;
     }
 }

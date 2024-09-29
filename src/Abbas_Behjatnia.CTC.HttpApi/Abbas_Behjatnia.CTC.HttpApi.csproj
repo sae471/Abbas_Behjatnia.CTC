@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abbas_Behjatnia.CTC.Application.Contracts\Abbas_Behjatnia.CTC.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.Domain\Abbas_Behjatnia.CTC.Domain.csproj" />
   </ItemGroup>
 
 </Project>

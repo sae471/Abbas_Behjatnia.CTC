@@ -42,9 +42,4 @@ public abstract class BaseAppService<TEntity, TEntityDto, TEntityUpsertDto> : IB
         entity = Mapper.Map<TEntityUpsertDto, TEntity>(input);
         return Mapper.Map<TEntity, TEntityDto>(await Repository.UpdateAsync(entity));
     }
-
-    public Task<IQueryable<TEntity>> GetQueryableAsync()
-    {
-        return Repository.GetQueryableAsync();
-    }
 }

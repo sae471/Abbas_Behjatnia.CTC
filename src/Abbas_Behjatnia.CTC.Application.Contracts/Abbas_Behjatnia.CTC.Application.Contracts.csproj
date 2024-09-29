@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Abbas_Behjatnia.CTC.Domain.Shared\Abbas_Behjatnia.CTC.Domain.Shared.csproj" />
     <ProjectReference Include="..\Abbas_Behjatnia.Shared\Abbas_Behjatnia.Shared.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.CTC.Domain\Abbas_Behjatnia.CTC.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,13 +11,15 @@ namespace Abbas_Behjatnia.CTC.Domain.Aggregates;
 public class VehicleManager : DomainService<Vehicle>
 {
     public IRepository<Vehicle> _vehicleRepository => LazyServiceProvider.LazyGetService<IRepository<Vehicle>>();
+    public IRepository<VehicleCategory> _vehicleCategoryRepository => LazyServiceProvider.LazyGetService<IRepository<VehicleCategory>>();
 
-    public async Task<Vehicle> NewAsync(string plateNumber, VehicleType type)
+    public async Task<Vehicle> NewAsync(VehicleType type, VehicleOwnerShipType ownerShipType, string plateNumber, string chassisNumber)
     {
         var id = new Guid();
-        await CheckPlateNumberAsync(plateNumber);
+        await CheckPlateAndChassisNumberAsync(plateNumber, chassisNumber);
         CheckVehicleType(type);
-        var vehicle = new Vehicle(id, plateNumber, type);
+        CheckVehicleOwnerShipType(ownerShipType);
+        var vehicle = new Vehicle(id, type, ownerShipType, plateNumber, chassisNumber);
         return vehicle;
     }
 
@@ -25,28 +27,71 @@ public class VehicleManager : DomainService<Vehicle>
     {
         if (!Enum.IsDefined(typeof(VehicleType), type))
         {
-            throw new ValidationException($"Vehicle type is invalid!!");
+            throw new ValidationException($"Vehicle Type is invalid!!");
         }
     }
 
-    public async Task CheckPlateNumberAsync(string plateNumber, Guid vehicleId = default)
+    public void SetVehicleType(Vehicle vehicle, VehicleType type)
     {
-        if (plateNumber is null || String.IsNullOrWhiteSpace(plateNumber.ToString()))
+        CheckVehicleType(type);
+        vehicle.Type = type;
+    }
+
+    public void CheckVehicleOwnerShipType(VehicleOwnerShipType ownerShipType)
+    {
+        if (!Enum.IsDefined(typeof(VehicleOwnerShipType), ownerShipType))
         {
-            throw new ValidationException($"Plate number Could not be null or empty!!");
+            throw new ValidationException($"Vehicle ownerShip type is invalid!!");
         }
-        var existedVehicle = await _vehicleRepository.FirstOrDefaultAsync(it =>
+    }
+
+    public void SetVehicleOwnerShip(Vehicle vehicle, VehicleOwnerShipType ownerShipType)
+    {
+        CheckVehicleOwnerShipType(ownerShipType);
+        vehicle.OwnerShipType = ownerShipType;
+    }
+
+    public async Task CheckPlateAndChassisNumberAsync(string plateNumber, string chassisNumber, Guid vehicleId = default)
+    {
+        if (chassisNumber is null || string.IsNullOrWhiteSpace(chassisNumber))
+        {
+            throw new ValidationException($"Chassis Number could not be null or empty!!");
+        }
+        if (plateNumber is null || string.IsNullOrWhiteSpace(plateNumber))
+        {
+            throw new ValidationException($"Plate Number could not be null or empty!!");
+        }
+        var existedVehicle = await _vehicleRepository.FindAsync(it =>
             it.PlateNumber.ToLower().Trim().Equals(plateNumber.ToLower().Trim()) &&
+            it.ChassisNumber.ToLower().Trim().Equals(chassisNumber.ToLower().Trim()) &&
             (vehicleId == default || it.Id != vehicleId));
 
         if (existedVehicle != null)
         {
-            throw new ValidationException($"The entered plate number exists!!");
+            throw new ValidationException($"The vehicle with the entered Chassis Number and Plate Number exists!!");
         }
     }
-    public async Task SetVehiclePlateNumber(Vehicle vehicle, string plateNumber)
+
+    public async Task SetPlateAndChassisNumberAsync(Vehicle vehicle, string chassisNumber, string plateNumber)
     {
-        await CheckPlateNumberAsync(plateNumber, vehicle.Id);
+        await CheckPlateAndChassisNumberAsync(plateNumber, chassisNumber, vehicle.Id);
         vehicle.PlateNumber = plateNumber;
+        vehicle.ChassisNumber = chassisNumber;
+    }
+
+    public async Task SetVehicleCategoryAsync(Vehicle vehicle, Guid vehicleCategoryId)
+    {
+        if (vehicleCategoryId == default)
+            return;
+
+        var vehicleCategory = await _vehicleCategoryRepository.FindAsync(vehicleCategoryId);
+        if (vehicleCategory != null)
+        {
+            throw new ValidationException($"The desired Vehicle Category does not exist!!");
+        }
+
+        vehicle.VehicleCategoryId = vehicleCategoryId;
+        vehicle.VehicleCategory = vehicleCategory;
+
     }
 }

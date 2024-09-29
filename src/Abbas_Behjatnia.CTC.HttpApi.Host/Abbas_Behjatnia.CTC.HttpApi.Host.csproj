@@ -11,6 +11,11 @@
     <ProjectReference Include="..\Abbas_Behjatnia.CTC.Application\Abbas_Behjatnia.CTC.Application.csproj" />
     <ProjectReference Include="..\Abbas_Behjatnia.CTC.EFCore\Abbas_Behjatnia.CTC.EFCore.csproj" />
     <ProjectReference Include="..\Abbas_Behjatnia.CTC.HttpApi\Abbas_Behjatnia.CTC.HttpApi.csproj" />
+    <ProjectReference Include="..\Abbas_Behjatnia.Shared\Abbas_Behjatnia.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
   </ItemGroup>
 
 </Project>
