@@ -12,7 +12,7 @@ public class Vehicle : AggregateRoot<Guid>
     public virtual string ChassisNumber { get; internal set; }
     public virtual string ManufacturerCompany { get; set; }
     public virtual string ManufacturerClass { get; set; }
-    public virtual string YearofManufacture { get; set; }
+    public virtual int YearofManufacture { get; set; }
     public virtual Guid? VehicleCategoryId { get; internal set; }
     public virtual VehicleCategory VehicleCategory { get; internal set; }
     public virtual string Color { get; set; }

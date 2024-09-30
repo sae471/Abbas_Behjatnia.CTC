@@ -12,7 +12,7 @@ public class VehicleOutputDto : EntityDto<Guid>
     public string? ChassisNumber { get; set; }
     public string? ManufacturerCompany { get; set; }
     public string? ManufacturerClass { get; set; }
-    public string? YearofManufacture { get; set; }
+    public int? YearofManufacture { get; set; }
     public KeyValueDto<Guid> VehicleCategory { get; set; }
     public string? Color { get; set; }
 }

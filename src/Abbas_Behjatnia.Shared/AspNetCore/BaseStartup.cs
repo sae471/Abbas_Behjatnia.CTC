@@ -71,7 +71,7 @@ public static class BaseStartup
 
     public static void InitializeApplication(this IApplicationBuilder app)
     {
-        app.UseMiddleware<ExceptionMiddleware>();
+        // app.UseMiddleware<ExceptionMiddleware>();
     }
 
 }

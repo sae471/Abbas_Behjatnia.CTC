@@ -22,6 +22,146 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("CountryDivisions");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TaxExempt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<short>("Day")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("DayofWeek")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsExempt")
+                        .HasColumnType("bit");
+
+                    b.Property<byte>("Month")
+                        .HasColumnType("tinyint");
+
+                    b.Property<Guid?>("ProvinceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("TollStationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("ValueIsPercentage")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("VehicleCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("VehicleType")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Week")
+                        .HasColumnType("tinyint");
+
+                    b.Property<short>("Year")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.HasIndex("TollStationId");
+
+                    b.HasIndex("VehicleCategoryId");
+
+                    b.ToTable("TaxExempts");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TollStation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProvinceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("TollStations");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.Traffic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TollStationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TollStationId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Traffic");
+                });
+
             modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
@@ -57,9 +197,8 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                     b.Property<Guid?>("VehicleCategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("YearofManufacture")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<short>("YearofManufacture")
+                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
@@ -86,6 +225,83 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("VehicleCategories");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", b =>
+                {
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TaxExempt", b =>
+                {
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.TollStation", "TollStation")
+                        .WithMany()
+                        .HasForeignKey("TollStationId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.VehicleCategory", "VehicleCategory")
+                        .WithMany()
+                        .HasForeignKey("VehicleCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("City");
+
+                    b.Navigation("Province");
+
+                    b.Navigation("TollStation");
+
+                    b.Navigation("VehicleCategory");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TollStation", b =>
+                {
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.CountryDivision", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("City");
+
+                    b.Navigation("Province");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.Traffic", b =>
+                {
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.TollStation", "TollStation")
+                        .WithMany()
+                        .HasForeignKey("TollStationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Abbas_Behjatnia.CTC.Domain.Aggregates.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TollStation");
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.Vehicle", b =>

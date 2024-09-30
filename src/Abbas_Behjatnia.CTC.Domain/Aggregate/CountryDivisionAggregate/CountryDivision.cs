@@ -6,13 +6,13 @@ namespace Abbas_Behjatnia.CTC.Domain.Aggregates;
 
 public class CountryDivision : AggregateRoot<Guid>
 {
-    public virtual string Name { get; internal set; }
     public virtual CountryDivisionType Type { get; internal set; }
+    public virtual string Name { get; internal set; }
     public virtual Guid? ParentId { get; internal set; }
     public virtual CountryDivision Parent { get; internal set; }
 
     protected CountryDivision() { }
-    public CountryDivision(Guid id, string name, CountryDivisionType type) : base(id)
+    public CountryDivision(Guid id, CountryDivisionType type, string name) : base(id)
     {
         this.Id = id;
         this.Name = name;

@@ -13,6 +13,7 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.Property(it => it.OwnerShipType).IsRequired();
         builder.Property(it => it.PlateNumber).HasColumnType("varchar(20)").IsRequired();
         builder.Property(it => it.ChassisNumber).HasColumnType("varchar(200)").IsRequired();
+        builder.Property(it => it.YearofManufacture).HasColumnType("smallint");
 
         builder.
             HasOne(it => it.VehicleCategory)

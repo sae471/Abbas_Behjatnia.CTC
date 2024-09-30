@@ -3,7 +3,7 @@ using Abbas_Behjatnia.Shared.Domain.Entities;
 
 namespace Abbas_Behjatnia.Shared.Domain.Repositories;
 
-public interface IRepository<TEntity> 
+public interface IRepository<TEntity>
     where TEntity : IEntity<Guid>
 {
     Task<TEntity> FindAsync(Guid id);

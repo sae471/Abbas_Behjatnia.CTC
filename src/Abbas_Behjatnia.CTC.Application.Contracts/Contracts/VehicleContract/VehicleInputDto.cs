@@ -12,6 +12,6 @@ public class VehicleInputDto : EntityDto<Guid>
     public string? ManufacturerCompany { get; set; }
     public string? ManufacturerClass { get; set; }
     public string? Color { get; set; }
-    public string? YearofManufacture { get; set; }
+    public int YearofManufacture { get; set; }
     public Guid? VehicleCategoryId { get; set; }
 }

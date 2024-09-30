@@ -1,6 +1,5 @@
 
 using Abbas_Behjatnia.CTC.Application.Contracts;
-using Abbas_Behjatnia.CTC.Application.Contracts.Contracts.VehicleContract;
 using Abbas_Behjatnia.CTC.Domain.Aggregates;
 using Abbas_Behjatnia.Shared.Application.Services;
 using Abbas_Behjatnia.Shared.AspNetCore;
@@ -21,7 +20,7 @@ public class VehicleAppService : BaseAppService<Vehicle, VehicleOutputDto, Vehic
         }
         vehicle.ManufacturerCompany = input.ManufacturerCompany ?? string.Empty;
         vehicle.ManufacturerClass = input.ManufacturerClass ?? string.Empty;
-        vehicle.YearofManufacture = input.YearofManufacture ?? string.Empty;
+        vehicle.YearofManufacture = input.YearofManufacture;
         vehicle.Color = input.Color ?? string.Empty;
         await _vehicleManager.SetVehicleCategoryAsync(vehicle, input.VehicleCategoryId ?? default);
 

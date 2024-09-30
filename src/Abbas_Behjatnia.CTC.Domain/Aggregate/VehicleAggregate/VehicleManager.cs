@@ -10,8 +10,8 @@ namespace Abbas_Behjatnia.CTC.Domain.Aggregates;
 
 public class VehicleManager : DomainService<Vehicle>
 {
-    public IRepository<Vehicle> _vehicleRepository => LazyServiceProvider.LazyGetService<IRepository<Vehicle>>();
-    public IRepository<VehicleCategory> _vehicleCategoryRepository => LazyServiceProvider.LazyGetService<IRepository<VehicleCategory>>();
+    IRepository<Vehicle> _vehicleRepository => LazyServiceProvider.LazyGetService<IRepository<Vehicle>>();
+    IRepository<VehicleCategory> _vehicleCategoryRepository => LazyServiceProvider.LazyGetService<IRepository<VehicleCategory>>();
 
     public async Task<Vehicle> NewAsync(VehicleType type, VehicleOwnerShipType ownerShipType, string plateNumber, string chassisNumber)
     {
@@ -85,7 +85,7 @@ public class VehicleManager : DomainService<Vehicle>
             return;
 
         var vehicleCategory = await _vehicleCategoryRepository.FindAsync(vehicleCategoryId);
-        if (vehicleCategory != null)
+        if (vehicleCategory == null)
         {
             throw new ValidationException($"The desired Vehicle Category does not exist!!");
         }

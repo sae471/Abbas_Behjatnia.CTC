@@ -8,7 +8,7 @@ namespace Abbas_Behjatnia.CTC.Domain.Aggregates;
 
 public class VehicleCategoryManager : DomainService<VehicleCategory>
 {
-    public IRepository<VehicleCategory> _vehicleCategoryRepository => LazyServiceProvider.LazyGetService<IRepository<VehicleCategory>>();
+    IRepository<VehicleCategory> _vehicleCategoryRepository => LazyServiceProvider.LazyGetService<IRepository<VehicleCategory>>();
 
     public VehicleCategory New(string name)
     {
@@ -38,7 +38,7 @@ public class VehicleCategoryManager : DomainService<VehicleCategory>
             return;
 
         var parent = await _vehicleCategoryRepository.FindAsync(parentId);
-        if (parent != null)
+        if (parent == null)
         {
             throw new ValidationException($"The desired Vehicle Category does not exist and could not be set as a Parent!!");
         }
