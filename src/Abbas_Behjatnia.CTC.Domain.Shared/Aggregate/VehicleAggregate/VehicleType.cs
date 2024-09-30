@@ -15,6 +15,8 @@ public enum VehicleType
     Van = 9,
     BoxTruck = 10,
     TowTruck = 11,
+    Busses=12,
+    Motorcycles=13
 
     //...
 }

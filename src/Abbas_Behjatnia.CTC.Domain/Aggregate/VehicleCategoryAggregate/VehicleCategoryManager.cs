@@ -1,5 +1,4 @@
 
-
 using System.ComponentModel.DataAnnotations;
 using Abbas_Behjatnia.Shared.AspNetCore;
 using Abbas_Behjatnia.Shared.Domain.Repositories;
