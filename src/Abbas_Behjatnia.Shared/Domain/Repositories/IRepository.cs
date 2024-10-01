@@ -1,10 +1,11 @@
 using System.Linq.Expressions;
 using Abbas_Behjatnia.Shared.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Abbas_Behjatnia.Shared.Domain.Repositories;
 
 public interface IRepository<TEntity>
-    where TEntity : IEntity<Guid>
+    where TEntity : class, IEntity<Guid>
 {
     Task<TEntity> FindAsync(Guid id);
     Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate);
@@ -12,4 +13,5 @@ public interface IRepository<TEntity>
     Task<TEntity> UpdateAsync(TEntity entity);
     Task<int> DeleteAsync(Guid id);
     Task<IQueryable<TEntity>> GetQueryableAsync();
+    DbSet<TEntity> Set();
 }

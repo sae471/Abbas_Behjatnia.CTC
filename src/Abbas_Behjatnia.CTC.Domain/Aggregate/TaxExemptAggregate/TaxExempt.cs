@@ -1,7 +1,5 @@
-using System;
 using Abbas_Behjatnia.CTC.Domain.Shared;
 using Abbas_Behjatnia.Shared.Domain.Entities;
-using Abbas_Behjatnia.Shared.Domain.Entities.Auditing;
 
 
 namespace Abbas_Behjatnia.CTC.Domain.Aggregates;
@@ -12,13 +10,11 @@ public class TaxExempt : AggregateRoot<Guid>
     public virtual bool IsExempt { get; set; }
     public virtual bool AmountIsPercentage { get; set; }
     public virtual decimal Amount { get; internal set; }
-    public virtual Guid CurrencyUnitId { get; internal set; }
-    public virtual CurrencyUnit CurrencyUnit { get; internal set; }
-    public virtual DateTime From { get; set; }
-    public virtual DateTime To { get; set; }
-    public virtual DayofWeek DayofWeek { get; internal set; }
-    public virtual int Day { get; set; }
-    public virtual int Week { get; set; }
+    public virtual TimeSpan FromTime { get; set; }
+    public virtual TimeSpan ToTime { get; set; }
+    public virtual DateTime FromDate { get; set; }
+    public virtual DateTime ToDate { get; set; }
+    public virtual DayOfWeek DayofWeek { get; internal set; }
     public virtual int Month { get; set; }
     public virtual int Year { get; set; }
     public virtual Guid? ProvinceId { get; internal set; }
@@ -33,11 +29,10 @@ public class TaxExempt : AggregateRoot<Guid>
 
 
     protected TaxExempt() { }
-    public TaxExempt(Guid id, string title, decimal amount, Guid currencyUnitId) : base(id)
+    public TaxExempt(Guid id, string title, decimal amount) : base(id)
     {
         this.Id = id;
         this.Title = title;
         this.Amount = amount;
-        this.CurrencyUnitId = currencyUnitId;
     }
 }

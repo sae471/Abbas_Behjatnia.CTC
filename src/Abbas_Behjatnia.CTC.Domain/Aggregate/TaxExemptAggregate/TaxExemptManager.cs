@@ -1,6 +1,4 @@
 using System;
-
-
 using System.ComponentModel.DataAnnotations;
 using Abbas_Behjatnia.CTC.Domain.Shared;
 using Abbas_Behjatnia.Shared.AspNetCore;
@@ -16,18 +14,17 @@ public class TaxExemptManager : DomainService<TaxExempt>
     IRepository<VehicleCategory> _vehicleCategoryRepository => LazyServiceProvider.LazyGetService<IRepository<VehicleCategory>>();
     IRepository<CurrencyUnit> _currencyUnitRepository => LazyServiceProvider.LazyGetService<IRepository<CurrencyUnit>>();
 
-    public async Task<TaxExempt> NewAsync(string title, decimal amount, bool isExempt, bool amountIsPercentage, Guid currencyUnitId)
+    public TaxExempt New(string title, decimal amount, bool IsExempt, bool amountIsPercentage)
     {
         var id = new Guid();
         CheckTitle(title);
         CheckAmount(amount);
-        await CheckCurrencyUnitAsync(currencyUnitId);
-        var taxExempt = new TaxExempt(id, title, amount, currencyUnitId);
-        taxExempt.IsExempt = isExempt;
+        var taxExempt = new TaxExempt(id, title, amount);
+        taxExempt.IsExempt = IsExempt;
         taxExempt.AmountIsPercentage = amountIsPercentage;
         return taxExempt;
     }
-
+    
     public void CheckTitle(string title)
     {
         if (title is null || string.IsNullOrWhiteSpace(title))
@@ -56,28 +53,6 @@ public class TaxExemptManager : DomainService<TaxExempt>
         taxExempt.Amount = amount;
     }
 
-    public async Task<CurrencyUnit> CheckCurrencyUnitAsync(Guid currencyUnitId)
-    {
-        if (currencyUnitId == default)
-        {
-            throw new ValidationException($"The Currency Unit could not be null or empty!!");
-        }
-        var currencyUnit = await _currencyUnitRepository.FindAsync(it => it.Id == currencyUnitId);
-        if (currencyUnit == null)
-        {
-            throw new ValidationException($"The desired Currency Unit does not exist!!");
-        }
-
-        return currencyUnit;
-    }
-    public async Task SetCurrencyAsync(TaxExempt taxExempt, Guid currencyUnitId)
-    {
-        var currencyUnit = await CheckCurrencyUnitAsync(currencyUnitId);
-
-        taxExempt.CurrencyUnitId = currencyUnitId;
-        taxExempt.CurrencyUnit = currencyUnit;
-    }
-
     public void SetVehicleType(TaxExempt taxExempt, VehicleType vehicleType)
     {
         if (vehicleType == default)
@@ -89,11 +64,11 @@ public class TaxExemptManager : DomainService<TaxExempt>
         taxExempt.VehicleType = vehicleType;
     }
 
-    public void SetDayofWeek(TaxExempt taxExempt, DayofWeek dayofWeek)
+    public void SetDayofWeek(TaxExempt taxExempt, DayOfWeek dayofWeek)
     {
         if (dayofWeek == default)
             return;
-        if (!Enum.IsDefined(typeof(DayofWeek), dayofWeek))
+        if (!Enum.IsDefined(typeof(DayOfWeek), dayofWeek))
         {
             throw new ValidationException($"Day of Week is invalid!!");
         }

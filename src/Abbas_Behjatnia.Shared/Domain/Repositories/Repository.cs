@@ -40,12 +40,18 @@ public abstract class Repository<TEntity> : IRepository<TEntity>
             return _context.Set<TEntity>().AsQueryable();
         });
     }
+
+    public virtual DbSet<TEntity> Set()
+    {
+        return _context.Set<TEntity>();
+    }
     public virtual async Task<TEntity> InsertAsync(TEntity entity)
     {
         var result = await _context.Set<TEntity>().AddAsync(entity);
         await _context.SaveChangesAsync();
         return result.Entity;
     }
+
     public virtual async Task<TEntity> UpdateAsync(TEntity entity)
     {
         var _entity = _context.Set<TEntity>().First(it => it.Id == entity.Id);

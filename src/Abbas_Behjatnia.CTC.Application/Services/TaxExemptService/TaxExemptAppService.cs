@@ -16,22 +16,22 @@ public class TaxExemptAppService : BaseAppService<TaxExempt, TaxExemptOutputDto,
         if (taxExempt == null)
         {
             isNew = true;
-            taxExempt = await _taxExemptManager.NewAsync(input.Title, input.Amount, input.IsExempt, input.AmountIsPercentage,input.CurrencyUnitId);
+            taxExempt = _taxExemptManager.New(input.Title, input.Amount, input.IsExempt, input.AmountIsPercentage);
         }
 
-        taxExempt.From = input.From??default;
-        taxExempt.To = input.To??default;
-        _taxExemptManager.SetDayofWeek(taxExempt, input.DayofWeek??default);
-        taxExempt.Day = input.Day??default;
-        taxExempt.Week = input.Week??default;
-        taxExempt.Month = input.Month??default;
-        taxExempt.Year = input.Year??default;
+        taxExempt.FromTime = input.FromTime ?? default;
+        taxExempt.ToTime = input.ToTime ?? default;
+        taxExempt.FromDate = input.FromDate ?? default;
+        taxExempt.ToDate = input.ToDate ?? default;
+        _taxExemptManager.SetDayofWeek(taxExempt, input.DayofWeek ?? default);
+        taxExempt.Month = input.Month ?? default;
+        taxExempt.Year = input.Year ?? default;
 
-        await _taxExemptManager.SetProvinceAsync(taxExempt, input.ProvinceId??default);
-        await _taxExemptManager.SetCityAsync(taxExempt, input.CityId??default);
-        await _taxExemptManager.SetTollStationAsync(taxExempt, input.TollStationId??default);
-        await _taxExemptManager.SetVehicleCategoryAsync(taxExempt, input.VehicleCategoryId??default);
-        _taxExemptManager.SetVehicleType(taxExempt, input.VehicleType??default);
+        await _taxExemptManager.SetProvinceAsync(taxExempt, input.ProvinceId ?? default);
+        await _taxExemptManager.SetCityAsync(taxExempt, input.CityId ?? default);
+        await _taxExemptManager.SetTollStationAsync(taxExempt, input.TollStationId ?? default);
+        await _taxExemptManager.SetVehicleCategoryAsync(taxExempt, input.VehicleCategoryId ?? default);
+        _taxExemptManager.SetVehicleType(taxExempt, input.VehicleType ?? default);
 
         if (!isNew)
         {

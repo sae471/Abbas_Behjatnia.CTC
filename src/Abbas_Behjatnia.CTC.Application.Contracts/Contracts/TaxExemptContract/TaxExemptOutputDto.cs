@@ -10,10 +10,11 @@ public class TaxExemptOutputDto : EntityDto<Guid>
     public bool IsExempt { get; set; }
     public bool AmountIsPercentage { get; set; }
     public decimal Amount { get; set; }
-    public required KeyValueDto<Guid> CurrencyUnit { get; set; }
-    public DateTime From { get; set; }
-    public DateTime To { get; set; }
-    public DayofWeek DayofWeek { get; set; }
+    public TimeSpan FromTime { get; set; }
+    public TimeSpan ToTime { get; set; }
+    public DateTime FromDate { get; set; }
+    public DateTime ToDate { get; set; }
+    public DayOfWeek DayofWeek { get; set; }
     public int Day { get; set; }
     public int Week { get; set; }
     public int Month { get; set; }
