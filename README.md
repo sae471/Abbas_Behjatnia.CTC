@@ -1,7 +1,4 @@
-# Abbas_Behjatnia.CTC
-
 # Congestion Tax Calculator
-# Tax Calculation Service
 
 Using a domain-driven design approach, a scalable and extensible business model has been developed in a minimal form. Due to the integration of deep specialized expertise in the design of the model and the implementation of the infrastructure and business logic, further development and modifications can be easily accommodated.
 
