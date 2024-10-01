@@ -18,13 +18,11 @@ This is a layered startup solution based on [Domain Driven Design (DDD)] practis
 
 The solution comes with a default configuration that works out of the box. However, you may consider to change the following configuration before running your solution:
 
-* Check the `ConnectionStrings` in `appsettings.json` files under the `Abbas_Behjatnia.CTC.HttpApi.Host` and `Abbas_Behjatnia.CTC.DbMigrator` projects and change it if you need.
+* Check the `ConnectionStrings` in `appsettings.json` files under the `Abbas_Behjatnia.CTC.HttpApi.Host` and `Abbas_Behjatnia.CTC.EFCore` projects and change it if you need.
 
 ### Before running the application
 
 #### Create the Database
-
-Run `Abbas_Behjatnia.CTC.DbMigrator` to create the initial database. This should be done in the first run. It is also needed if a new database migration is added to the solution later.
 
 ### Solution structure
 
