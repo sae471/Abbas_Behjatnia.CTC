@@ -21,12 +21,4 @@ The solution comes with a default configuration that works out of the box. Howev
 * Check the `ConnectionStrings` in `appsettings.json` files under the `Abbas_Behjatnia.CTC.HttpApi.Host` and `Abbas_Behjatnia.CTC.EFCore` projects and change it if you need.
 
 ### Before running the application
-
 #### Create the Database
-
-### Solution structure
-
-This is a layered monolith application that consists of the following applications:
-
-* `Abbas_Behjatnia.CTC.DbMigrator`: A console application which applies the migrations and also seeds the initial data. It is useful on development as well as on production environment.
-* `Abbas_Behjatnia.CTC.HttpApi.Host`: ASP.NET Core API application that is used to expose the APIs to the clients.
