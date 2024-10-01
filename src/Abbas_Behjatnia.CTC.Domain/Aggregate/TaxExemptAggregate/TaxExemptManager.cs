@@ -64,11 +64,11 @@ public class TaxExemptManager : DomainService<TaxExempt>
         taxExempt.VehicleType = vehicleType;
     }
 
-    public void SetDayofWeek(TaxExempt taxExempt, DayOfWeek dayofWeek)
+    public void SetDayofWeek(TaxExempt taxExempt, Domain.Shared.DayOfWeek dayofWeek)
     {
         if (dayofWeek == default)
             return;
-        if (!Enum.IsDefined(typeof(DayOfWeek), dayofWeek))
+        if (!Enum.IsDefined(typeof(Domain.Shared.DayOfWeek), dayofWeek))
         {
             throw new ValidationException($"Day of Week is invalid!!");
         }

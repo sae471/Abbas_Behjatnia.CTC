@@ -13,9 +13,7 @@ public class TaxExemptInputDto : EntityDto<Guid>
     public TimeSpan? ToTime { get; set; }
     public DateTime? FromDate { get; set; }
     public DateTime? ToDate { get; set; }
-    public DayOfWeek? DayofWeek { get; set; }
-    public int? Day { get; set; }
-    public int? Week { get; set; }
+    public Domain.Shared.DayOfWeek? DayofWeek { get; set; }
     public int? Month { get; set; }
     public int? Year { get; set; }
     public Guid? ProvinceId { get; set; }

@@ -14,8 +14,9 @@ public class CTCDbContext : DbContext
     public DbSet<CountryDivision> CountryDivisions { get; set; }
     public DbSet<TaxExempt> TaxExempts { get; set; }
     public DbSet<TollStation> TollStations { get; set; }
-    public DbSet<Traffic> Traffic { get; set; }
+    public DbSet<Traffic> Traffics { get; set; }
     public DbSet<CurrencyUnit> CurrencyUnits { get; set; }
+    public DbSet<TaxExemptSetting> TaxExemptSettings { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {

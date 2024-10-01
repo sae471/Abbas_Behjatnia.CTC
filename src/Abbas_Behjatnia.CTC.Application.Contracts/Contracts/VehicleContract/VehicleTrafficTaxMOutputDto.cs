@@ -5,7 +5,7 @@ using Abbas_Behjatnia.Shared.Application.Dto;
 
 namespace Abbas_Behjatnia.CTC.Application.Contracts;
 
-public class VehicleTrafficTaxListMOutputDto : EntityDto<Guid>
+public class VehicleTrafficTaxListMOutputDto 
 {
     public decimal TotalTax { get; set; }
     public decimal Exempt { get; set; }

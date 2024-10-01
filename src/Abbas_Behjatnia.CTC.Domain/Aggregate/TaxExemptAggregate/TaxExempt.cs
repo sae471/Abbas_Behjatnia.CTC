@@ -14,7 +14,7 @@ public class TaxExempt : AggregateRoot<Guid>
     public virtual TimeSpan ToTime { get; set; }
     public virtual DateTime FromDate { get; set; }
     public virtual DateTime ToDate { get; set; }
-    public virtual DayOfWeek DayofWeek { get; internal set; }
+    public virtual Domain.Shared.DayOfWeek DayofWeek { get; internal set; }
     public virtual int Month { get; set; }
     public virtual int Year { get; set; }
     public virtual Guid? ProvinceId { get; internal set; }

@@ -32,6 +32,33 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CurrencyUnits",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(150)", nullable: false),
+                    DecimalNumber = table.Column<int>(type: "int", nullable: false),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CurrencyUnits", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TaxExemptSettings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<string>(type: "varchar(200)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaxExemptSettings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VehicleCategories",
                 columns: table => new
                 {
@@ -109,13 +136,13 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "varchar(200)", nullable: false),
                     IsExempt = table.Column<bool>(type: "bit", nullable: false),
-                    ValueIsPercentage = table.Column<bool>(type: "bit", nullable: false),
-                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    From = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    To = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AmountIsPercentage = table.Column<bool>(type: "bit", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FromTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    ToTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DayofWeek = table.Column<int>(type: "int", nullable: false),
-                    Day = table.Column<short>(type: "smallint", nullable: false),
-                    Week = table.Column<byte>(type: "tinyint", nullable: false),
                     Month = table.Column<byte>(type: "tinyint", nullable: false),
                     Year = table.Column<short>(type: "smallint", nullable: false),
                     ProvinceId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -154,7 +181,7 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Traffic",
+                name: "Traffics",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -164,15 +191,15 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Traffic", x => x.Id);
+                    table.PrimaryKey("PK_Traffics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Traffic_TollStations_TollStationId",
+                        name: "FK_Traffics_TollStations_TollStationId",
                         column: x => x.TollStationId,
                         principalTable: "TollStations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Traffic_Vehicles_VehicleId",
+                        name: "FK_Traffics_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "Id",
@@ -215,13 +242,13 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                 column: "ProvinceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Traffic_TollStationId",
-                table: "Traffic",
+                name: "IX_Traffics_TollStationId",
+                table: "Traffics",
                 column: "TollStationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Traffic_VehicleId",
-                table: "Traffic",
+                name: "IX_Traffics_VehicleId",
+                table: "Traffics",
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
@@ -239,10 +266,16 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CurrencyUnits");
+
+            migrationBuilder.DropTable(
                 name: "TaxExempts");
 
             migrationBuilder.DropTable(
-                name: "Traffic");
+                name: "TaxExemptSettings");
+
+            migrationBuilder.DropTable(
+                name: "Traffics");
 
             migrationBuilder.DropTable(
                 name: "TollStations");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abbas_Behjatnia.CTC.EFCore.Migrations
 {
     [DbContext(typeof(CTCDbContext))]
-    [Migration("20240930142219_1.0.0.0")]
+    [Migration("20241001195831_1.0.0.0")]
     partial class _1000
     {
         /// <inheritdoc />
@@ -48,23 +48,51 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                     b.ToTable("CountryDivisions");
                 });
 
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.CurrencyUnit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DecimalNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CurrencyUnits");
+                });
+
             modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TaxExempt", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("AmountIsPercentage")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("CityId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<short>("Day")
-                        .HasColumnType("smallint");
 
                     b.Property<int>("DayofWeek")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("From")
+                    b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("FromTime")
+                        .HasColumnType("time");
 
                     b.Property<bool>("IsExempt")
                         .HasColumnType("bit");
@@ -79,26 +107,20 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<DateTime>("To")
+                    b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("ToTime")
+                        .HasColumnType("time");
 
                     b.Property<Guid?>("TollStationId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("ValueIsPercentage")
-                        .HasColumnType("bit");
 
                     b.Property<Guid?>("VehicleCategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VehicleType")
                         .HasColumnType("int");
-
-                    b.Property<byte>("Week")
-                        .HasColumnType("tinyint");
 
                     b.Property<short>("Year")
                         .HasColumnType("smallint");
@@ -114,6 +136,24 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
                     b.HasIndex("VehicleCategoryId");
 
                     b.ToTable("TaxExempts");
+                });
+
+            modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TaxExemptSetting", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaxExemptSettings");
                 });
 
             modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.TollStation", b =>
@@ -162,7 +202,7 @@ namespace Abbas_Behjatnia.CTC.EFCore.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Traffic");
+                    b.ToTable("Traffics");
                 });
 
             modelBuilder.Entity("Abbas_Behjatnia.CTC.Domain.Aggregates.Vehicle", b =>

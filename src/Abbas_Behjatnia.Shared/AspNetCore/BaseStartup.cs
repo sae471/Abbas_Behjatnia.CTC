@@ -32,40 +32,23 @@ public static class BaseStartup
                 services.AddScoped(typeof(DbContext), appDbContext);
             });
 
-            assembly
-            .GetTypes()
-            .Where(item => item.GetInterfaces()
-            .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IDomainService<>)) && !item.IsAbstract && !item.IsInterface)
-            .ToList()
-            .ForEach(assignedTypes =>
-            {
-                var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IDomainService<>));
-                services.AddScoped(serviceType, assignedTypes);
-            });
+            services.Scan(scan => scan
+            .FromAssemblies(assembly) 
+            .AddClasses(classes => classes.AssignableTo(typeof(IDomainService<>)))
+            .AsSelfWithInterfaces()
+            .WithScopedLifetime());
 
-            assembly
-            .GetTypes()
-            .Where(item => item.GetInterfaces()
-            .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IRepository<>)) && !item.IsAbstract && !item.IsInterface)
-            .ToList()
-            .ForEach(assignedTypes =>
-            {
-                var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IRepository<>));
-                services.AddScoped(serviceType, assignedTypes);
-            });
+            services.Scan(scan => scan
+            .FromAssemblies(assembly) 
+            .AddClasses(classes => classes.AssignableTo(typeof(IRepository<>)))
+            .AsSelfWithInterfaces()
+            .WithScopedLifetime());
 
-
-            assembly
-            .GetTypes()
-            .Where(item => item.GetInterfaces()
-            .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IBaseAppService<,,>)) && !item.IsAbstract && !item.IsInterface)
-            .ToList()
-            .ForEach(assignedTypes =>
-            {
-                var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IBaseAppService<,,>));
-                services.AddScoped(serviceType, assignedTypes);
-            });
-
+            services.Scan(scan => scan
+            .FromAssemblies(assembly) 
+            .AddClasses(classes => classes.AssignableTo(typeof(IBaseAppService<,,>)))
+            .AsSelfWithInterfaces()
+            .WithScopedLifetime());
         }
     }
 
